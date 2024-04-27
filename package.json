@@ -16,6 +16,8 @@
   "devDependencies": {
     "compression": "^1.7.4",
     "helmet": "^7.1.0",
+    "mogoose": "^0.0.1-security",
+    "mongoose": "^8.3.2",
     "morgan": "^1.10.0"
   }
 }
