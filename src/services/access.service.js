@@ -7,7 +7,7 @@ const { createTokenPair } = require('../auth/authUtils');
 
 const RoleShop = {
     SHOP: 'SHOP',
-    WRITER: 'WRITE',
+    WRITER: 'WRITER',
     EDITOR: 'EDITOR',
     ADMIN: 'ADMIN'
 }
@@ -26,13 +26,21 @@ class AccessService {
             }
             const passwordHash = await bcrypt.hash(password, 10)
             const newShop = await shopModel.create({
-                name,email,passwordHash,roles:[RoleShop.SHOP]
+                name,email,password:passwordHash,roles:[RoleShop.SHOP]
             })
 
             if(newShop){
                 //created privateKey - sign token, publicKey - verify token
                 const {privateKey,publicKey} = crypto.generateKeyPairSync('rsa',{
-                    modulusLength: 4096
+                    modulusLength: 4096,
+                    publicKeyEncoding:{
+                        type: 'pkcs1', // public key cryptography standards
+                        format:'pem' 
+                    },
+                    privateKeyEncoding: {
+                        type: 'pkcs1',
+                        format: 'pem'
+                    }
                 })
                 console.log({privateKey, publicKey})// save collection KeyStore
                 
@@ -41,14 +49,19 @@ class AccessService {
                     userId: newShop._id,
                     publicKey
                 })
+                // check key if exists
                 if(!publicKeyString){
                     return{
                         code:'xxxx',
                         message: 'publicKeyString error'
                     }
                 }
+                console.log(`publicKeyString::`, publicKeyString)
+                const publicKeyObject = crypto.createPublicKey(publicKeyString)
+
+                console.log(`publicKeyObject::`, publicKeyObject)
                 //created token pair
-                const tokens = await createTokenPair({usedId: newShop._id,email},publicKey, privateKey)
+                const tokens = await createTokenPair({usedId: newShop._id,email},publicKeyString, privateKey)
                 console.log(`Created Token Success::`, tokens)
 
                 return{

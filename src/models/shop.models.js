@@ -20,7 +20,7 @@ const shopSchema = Schema({
     },
     password:{
         type:String,
-        required:true,
+        required: [true, 'Path `password` is required']
     },
     // allow a shop to active or inactive
     status:{
