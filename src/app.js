@@ -10,19 +10,16 @@ const morgan = require('morgan');
 app.use(morgan("dev"))
 app.use(helmet())
 app.use(compression())
+app.use(express.json())
+app.use(express.urlencoded({
+    extended: true
+}))
 // init db
 require('./db/init.mongodb');
 // const {checkOverload} = require('./helpers/check.connect')
 // checkOverload()
 // init routes 
-app.get('/',(req,res,next)=>{
-    // const strCompress = 'Hello John';
-
-    return res.status(200).json({
-        message: 'Welcome home',
-        // metadata: strCompress.repeat(1000000)
-    })
-})
+app.use('/',require('./routes/index'))
 // handle error
 
 
