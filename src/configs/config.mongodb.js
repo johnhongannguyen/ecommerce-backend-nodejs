@@ -12,6 +12,7 @@
 //     }
 // }
 // lv1
+// development
 const dev = {
     app:{
         port: process.env.DEV_APP_PORT || 3052
@@ -22,7 +23,7 @@ const dev = {
         name:process.env.DEV_DB_NAME || 'shopDEV'
     }
 }
-
+// production
 const pro = {
     app:{
         port:process.env.PRO_APP_PORT || 3000
