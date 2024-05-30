@@ -2,29 +2,29 @@
 
 const {model, Schema} = require('mongoose'); // Erase if already required
 
+
+const DOCUMENT_NAME='Apikey'
+const COLLECTION_NAME = 'Apikeys'
 // Declare the Schema of the Mongo model
-var userSchema = new mongoose.Schema({
-    name:{
+var apiKeySchema = new Schema({
+    key:{
         type:String,
         required:true,
-        unique:true,
-        index:true,
+        unique:true
     },
-    email:{
+    status:{
         type:String,
-        required:true,
-        unique:true,
+        default: true
     },
-    mobile:{
-        type:String,
+    permissions:{
+        type:[String],
         required:true,
-        unique:true,
+        enum: ['0000','1111','2222']
     },
-    password:{
-        type:String,
-        required:true,
-    },
+},{
+    timestamps: true,
+    collection: COLLECTION_NAME
 });
 
 //Export the model
-module.exports = mongoose.model('User', userSchema);
+module.exports = model(DOCUMENT_NAME, apiKeySchema);
