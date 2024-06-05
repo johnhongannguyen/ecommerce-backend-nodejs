@@ -1,18 +1,5 @@
 'use strict'
 
-// lv0 
-// const config = {
-//     app:{
-//         port:3000
-//     },
-//     db:{
-//         host:'localhost',
-//         port: 27017,
-//         name: 'db'
-//     }
-// }
-// lv1
-// development
 const dev = {
     app:{
         port: process.env.DEV_APP_PORT || 3052

@@ -5,8 +5,8 @@ const crypto = require('node:crypto');
 const KeyTokenService = require('./keyToken.service');
 const { createTokenPair } = require('../auth/authUtils');
 const {getInfoData} = require('../utils/index');
-const _ = require('lodash');
 const { BadRequestError } = require('../core/error.response');
+
 const RoleShop = {
     SHOP: 'SHOP',
     WRITER: 'WRITER',
@@ -17,7 +17,7 @@ const RoleShop = {
 
 class AccessService {
     static signUp = async ({name,email,password}) =>{
-        try{
+        // try{
             // step1 : check email exists
             const shopHolder = await shopModel.findOne({email}).lean()
             if(shopHolder){
@@ -65,14 +65,6 @@ class AccessService {
                 code: 200,
                 metadata: null
             }
-        }catch(err){
-            console.error(error)
-            return{
-                code:'xxx',
-                message: err.message,
-                status: 'error'
-            }
-        }
     }
 }
 
