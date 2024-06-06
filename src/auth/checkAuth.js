@@ -1,6 +1,6 @@
 'use strict'
 
-const { findById } = require("../models/apikey.model")
+const { findById } = require("../services/apiKey.service")
 
 const HEADER = {
     API_KEY: 'x-api-key',
@@ -37,7 +37,7 @@ const permission = (permission) =>{
             })
         }
         console.log('permission',req.objKey.permissions)
-        const validPermission = req.objKey.permissions.include(permission)
+        const validPermission = req.objKey.permissions.includes(permission)
         if(!validPermission){
             return res.status(403).json({
                 message: 'Permission denied'

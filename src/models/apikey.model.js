@@ -13,7 +13,7 @@ var apiKeySchema = new Schema({
         unique:true
     },
     status:{
-        type:String,
+        type:Boolean,
         default: true
     },
     permissions:{

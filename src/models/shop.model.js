@@ -7,7 +7,7 @@ const COLLECTION_NAME = 'Shops'
 
 
 // Declare the Schema of the Mongo model
-const shopSchema = Schema({
+const shopSchema = new Schema({
     name:{
         type:String,
         trim: true,
